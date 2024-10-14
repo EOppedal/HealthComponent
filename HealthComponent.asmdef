@@ -1,0 +1,16 @@
+{
+    "name": "HealthComponent",
+    "rootNamespace": "HealthComponent",
+    "references": [
+        "GUID:67d829bf3d183c84090de4aa17be1dff"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
