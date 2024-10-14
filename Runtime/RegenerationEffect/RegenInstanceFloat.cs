@@ -4,8 +4,12 @@ using UnityEngine;
 
 namespace RegenerationEffect {
     public class RegenInstanceFloat : RegenInstance<float> {
-        public RegenInstanceFloat(float healingInterval, float healingAmountPerInterval, float duration,
-            float healingAmount) : base(healingInterval, healingAmountPerInterval, duration, healingAmount) {
+        public RegenInstanceFloat(float healingAmountPerInterval, float healingInterval, float duration)
+            : base(healingInterval, healingAmountPerInterval, duration) {
+        }
+
+        public RegenInstanceFloat(float totalHealingAmount, float healingInterval, float duration, float _ = 0)
+            : base(healingInterval, totalHealingAmount / (duration / healingInterval), duration) {
         }
 
         private static Timer RegenerationTimerInterval(HealthComponentFloat healthComponent,

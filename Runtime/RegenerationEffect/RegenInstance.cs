@@ -6,13 +6,11 @@ namespace RegenerationEffect {
         protected readonly float HealingInterval;
         protected readonly T HealingAmountPerInterval;
         protected readonly float Duration;
-        protected readonly T HealingAmount;
 
-        protected RegenInstance(float healingInterval, T healingAmountPerInterval, float duration, T healingAmount) {
+        protected RegenInstance(float healingInterval, T healingAmountPerInterval, float duration) {
             HealingInterval = healingInterval;
             HealingAmountPerInterval = healingAmountPerInterval;
             Duration = duration;
-            HealingAmount = healingAmount;
         }
 
         public abstract void ApplyTo(IHealthComponent healthComponent);
