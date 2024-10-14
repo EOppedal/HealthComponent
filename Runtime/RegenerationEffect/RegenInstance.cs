@@ -3,12 +3,12 @@ using HealthComponent;
 
 namespace RegenerationEffect {
     public abstract class RegenInstance<T> where T : IComparable<T> {
-        protected readonly float HealingInterval;
+        protected readonly float HealingIntervalTime;
         protected readonly T HealingAmountPerInterval;
         protected readonly float Duration;
 
-        protected RegenInstance(float healingInterval, T healingAmountPerInterval, float duration) {
-            HealingInterval = healingInterval;
+        protected RegenInstance(float healingIntervalTime, T healingAmountPerInterval, float duration) {
+            HealingIntervalTime = healingIntervalTime;
             HealingAmountPerInterval = healingAmountPerInterval;
             Duration = duration;
         }

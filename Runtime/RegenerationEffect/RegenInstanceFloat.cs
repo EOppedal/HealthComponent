@@ -4,12 +4,16 @@ using UnityEngine;
 
 namespace RegenerationEffect {
     public class RegenInstanceFloat : RegenInstance<float> {
-        public RegenInstanceFloat(float healingAmountPerInterval, float healingInterval, float duration)
-            : base(healingInterval, healingAmountPerInterval, duration) {
+        public RegenInstanceFloat(float healingAmountPerInterval, float healingIntervalTime, float duration)
+            : base(healingIntervalTime, healingAmountPerInterval, duration) {
         }
 
-        public RegenInstanceFloat(float totalHealingAmount, float healingInterval, float duration, float _ = 0)
-            : base(healingInterval, totalHealingAmount / (duration / healingInterval), duration) {
+        public RegenInstanceFloat(float totalHealingAmount, float healingIntervalTime, float duration, float _ = 0)
+            : base(healingIntervalTime, totalHealingAmount / (duration / healingIntervalTime), duration) {
+        }
+        
+        public RegenInstanceFloat(float totalHealingAmount, int healingIntervals, float duration)
+            : base(duration / healingIntervals, totalHealingAmount / (duration / (duration / healingIntervals)), duration) {
         }
 
         private static Timer RegenerationTimerInterval(HealthComponentFloat healthComponent,
@@ -25,7 +29,7 @@ namespace RegenerationEffect {
             if (healthComponent is HealthComponentFloat healthComponentFloat) {
                 healthComponentFloat.TimersStoppedWhenTakingDamage.Add(
                     RegenerationTimerInterval(healthComponentFloat,
-                        HealingAmountPerInterval, Duration, HealingInterval));
+                        HealingAmountPerInterval, Duration, HealingIntervalTime));
             }
             else {
                 Debug.LogError("HealthComponent is not a HealthComponentFloat and healing could not be applied.");

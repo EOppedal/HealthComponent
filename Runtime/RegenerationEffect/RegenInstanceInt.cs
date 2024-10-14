@@ -7,12 +7,16 @@ namespace RegenerationEffect {
     /// TotalHealingAmount may give wrong totals if the increment calculated is not an int
     /// </summary>
     public class RegenInstanceInt : RegenInstance<int> {
-        public RegenInstanceInt(int healingAmountPerInterval, float healingInterval, float duration)
-            : base(healingInterval, healingAmountPerInterval, duration) {
+        public RegenInstanceInt(int healingAmountPerInterval, float healingIntervalTime, float duration)
+            : base(healingIntervalTime, healingAmountPerInterval, duration) {
         }
 
-        public RegenInstanceInt(int totalHealingAmount, float healingInterval, float duration, int _ = 0)
-            : base(healingInterval, (int)(totalHealingAmount / (duration / healingInterval)), duration) {
+        public RegenInstanceInt(int totalHealingAmount, float healingIntervalTime, float duration, int _ = 0)
+            : base(healingIntervalTime, (int)(totalHealingAmount / (duration / healingIntervalTime)), duration) {
+        }
+        
+        public RegenInstanceInt(int totalHealingAmount, int healingIntervals, float duration)
+            : base(duration / healingIntervals, (int)(totalHealingAmount / (duration / (duration / healingIntervals))), duration) {
         }
 
         private static Timer RegenerationTimerInterval(HealthComponentInt healthComponent,
@@ -28,7 +32,7 @@ namespace RegenerationEffect {
             if (healthComponent is HealthComponentInt healthComponentFloat) {
                 healthComponentFloat.TimersStoppedWhenTakingDamage.Add(
                     RegenerationTimerInterval(healthComponentFloat,
-                        HealingAmountPerInterval, Duration, HealingInterval));
+                        HealingAmountPerInterval, Duration, HealingIntervalTime));
             }
             else {
                 Debug.LogError("HealthComponent is not a HealthComponentInt and healing could not be applied.");
