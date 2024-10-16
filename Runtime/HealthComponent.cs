@@ -31,9 +31,12 @@ namespace HealthComponent {
 
         private CountdownTimer _invulnerabilityTimer;
 
-        private void Awake() {
+        protected virtual void Awake() {
             _invulnerabilityTimer = new CountdownTimer(invulnerabilityTime);
-            _invulnerabilityTimer.OnBegin += () => _hasInvincibilityFrames = true;
+            _invulnerabilityTimer.OnBegin += () => {
+                _invulnerabilityTimer.Duration = invulnerabilityTime;
+                _hasInvincibilityFrames = true;
+            };
             _invulnerabilityTimer.OnComplete += () => _hasInvincibilityFrames = false;
 
             OnTakingDamage += () => {
