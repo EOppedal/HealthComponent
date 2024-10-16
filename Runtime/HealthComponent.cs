@@ -8,8 +8,8 @@ namespace HealthComponent {
         [SerializeField] protected T health;
         public T maxHealth;
 
-        [SerializeField] private float invulnerabilityTime = 0.5f;
-        private bool _hasInvincibilityFrames;
+        [SerializeField] protected float invulnerabilityTime = 0.5f;
+        protected bool _hasInvincibilityFrames;
 
         public event Action<T> OnHealthChanged = delegate { };
         public event Action OnHealingReceived = delegate { };
