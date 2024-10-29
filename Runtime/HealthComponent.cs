@@ -9,7 +9,7 @@ namespace HealthComponent {
         public T maxHealth;
 
         [SerializeField] protected float invulnerabilityTime = 0.5f;
-        protected bool _hasInvincibilityFrames;
+        [field: SerializeField] public bool HasInvincibilityFrames { get; protected set; }
 
         public event Action<T> OnHealthChanged = delegate { };
         public event Action OnHealingReceived = delegate { };
@@ -35,9 +35,9 @@ namespace HealthComponent {
             _invulnerabilityTimer = new CountdownTimer(invulnerabilityTime);
             _invulnerabilityTimer.OnBegin += () => {
                 _invulnerabilityTimer.Duration = invulnerabilityTime;
-                _hasInvincibilityFrames = true;
+                HasInvincibilityFrames = true;
             };
-            _invulnerabilityTimer.OnComplete += () => _hasInvincibilityFrames = false;
+            _invulnerabilityTimer.OnComplete += () => HasInvincibilityFrames = false;
 
             OnTakingDamage += () => {
                 foreach (var timer in TimersStoppedWhenTakingDamage) {
@@ -47,7 +47,7 @@ namespace HealthComponent {
         }
 
         public virtual void TriggerInvulnerability(float duration = default) {
-            if (_invulnerabilityTimer.TimerRunning) return;
+            if (_invulnerabilityTimer.IsRunning) return;
 
             _invulnerabilityTimer.Duration = Mathf.Approximately(duration, default) ? invulnerabilityTime : duration;
             _invulnerabilityTimer.StartTimer();
@@ -58,7 +58,7 @@ namespace HealthComponent {
         }
 
         public virtual void TakeDamage(T amount) {
-            if (_hasInvincibilityFrames) return;
+            if (HasInvincibilityFrames) return;
 
             Health = Subtract(Health, amount);
 
