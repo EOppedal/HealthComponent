@@ -18,6 +18,8 @@ namespace HealthComponent {
 
         public readonly List<Timer> TimersStoppedWhenTakingDamage = new();
 
+        public CountdownTimer InvulnerabilityTimer;
+
         public T Health {
             get => health;
             set {
@@ -29,15 +31,14 @@ namespace HealthComponent {
             }
         }
 
-        private CountdownTimer _invulnerabilityTimer;
 
         protected virtual void Awake() {
-            _invulnerabilityTimer = new CountdownTimer(invulnerabilityTime);
-            _invulnerabilityTimer.OnBegin += () => {
-                _invulnerabilityTimer.Duration = invulnerabilityTime;
+            InvulnerabilityTimer = new CountdownTimer(invulnerabilityTime);
+            InvulnerabilityTimer.OnBegin += () => {
+                InvulnerabilityTimer.Duration = invulnerabilityTime;
                 HasInvincibilityFrames = true;
             };
-            _invulnerabilityTimer.OnComplete += () => HasInvincibilityFrames = false;
+            InvulnerabilityTimer.OnComplete += () => HasInvincibilityFrames = false;
 
             OnTakingDamage += () => {
                 foreach (var timer in TimersStoppedWhenTakingDamage) {
@@ -47,10 +48,10 @@ namespace HealthComponent {
         }
 
         public virtual void TriggerInvulnerability(float duration = default) {
-            if (_invulnerabilityTimer.IsRunning) return;
+            if (InvulnerabilityTimer.IsRunning) return;
 
-            _invulnerabilityTimer.Duration = Mathf.Approximately(duration, default) ? invulnerabilityTime : duration;
-            _invulnerabilityTimer.StartTimer();
+            InvulnerabilityTimer.Duration = Mathf.Approximately(duration, default) ? invulnerabilityTime : duration;
+            InvulnerabilityTimer.StartTimer();
         }
 
         public virtual void InvokeHealthChangedEvent() {
