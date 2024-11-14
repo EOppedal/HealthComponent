@@ -31,7 +31,6 @@ namespace HealthComponent {
             }
         }
 
-
         protected virtual void Awake() {
             InvulnerabilityTimer = new CountdownTimer(invulnerabilityTime);
             InvulnerabilityTimer.OnBegin += () => {
