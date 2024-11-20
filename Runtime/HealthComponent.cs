@@ -50,7 +50,7 @@ namespace HealthComponent {
             if (InvulnerabilityTimer.IsRunning) return;
 
             InvulnerabilityTimer.Duration = Mathf.Approximately(duration, default) ? invulnerabilityTime : duration;
-            InvulnerabilityTimer.StartTimer();
+            InvulnerabilityTimer.RestartTimer();
         }
 
         public virtual void InvokeHealthChangedEvent() {
