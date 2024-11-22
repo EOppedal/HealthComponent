@@ -47,8 +47,6 @@ namespace HealthComponent {
         }
 
         public virtual void TriggerInvulnerability(float duration = default) {
-            if (InvulnerabilityTimer.IsRunning) return;
-
             InvulnerabilityTimer.Duration = Mathf.Approximately(duration, default) ? invulnerabilityTime : duration;
             InvulnerabilityTimer.RestartTimer();
         }
