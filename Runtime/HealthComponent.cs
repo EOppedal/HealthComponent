@@ -23,10 +23,10 @@ namespace HealthComponent {
         public T Health {
             get => health;
             set {
-                health = Clamp(value, default, maxHealth);
+                health = Clamp(value, ZeroValue, maxHealth);
                 InvokeHealthChangedEvent();
                 if (health.CompareTo(ZeroValue) <= 0) {
-                    OnDeath?.Invoke();
+                    OnDeath.Invoke();
                 }
             }
         }
@@ -52,7 +52,7 @@ namespace HealthComponent {
         }
 
         public virtual void InvokeHealthChangedEvent() {
-            OnHealthChanged?.Invoke(Health);
+            OnHealthChanged.Invoke(Health);
         }
 
         public virtual void TakeDamage(T amount) {
@@ -60,14 +60,14 @@ namespace HealthComponent {
 
             Health = Subtract(Health, amount);
 
-            OnTakingDamage?.Invoke();
+            OnTakingDamage.Invoke();
 
             TriggerInvulnerability();
         }
 
         public virtual void Heal(T amount) {
             Health = Add(Health, amount);
-            OnHealingReceived?.Invoke();
+            OnHealingReceived.Invoke();
         }
 
         public static implicit operator T(HealthComponent<T> healthComponent) {
