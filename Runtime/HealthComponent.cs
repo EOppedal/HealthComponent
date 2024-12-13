@@ -55,8 +55,8 @@ namespace HealthComponent {
             OnHealthChanged.Invoke(Health);
         }
 
-        public virtual void TakeDamage(T amount) {
-            if (HasInvincibilityFrames) return;
+        public virtual void TakeDamage(T amount, bool ignoreInvincibilityFrames) {
+            if (HasInvincibilityFrames && !ignoreInvincibilityFrames) return;
 
             Health = Subtract(Health, amount);
 
