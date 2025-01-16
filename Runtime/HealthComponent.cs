@@ -9,7 +9,7 @@ namespace HealthComponent {
         public T maxHealth;
 
         [SerializeField] protected float invulnerabilityTime = 0.5f;
-        [field: SerializeField] public bool HasInvincibilityFrames { get; protected set; }
+        [field: SerializeField] public bool HasInvincibilityFrames { get; set; }
 
         public event Action<T> OnHealthChanged = delegate { };
         public event Action OnHealingReceived = delegate { };
